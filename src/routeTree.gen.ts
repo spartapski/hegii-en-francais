@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as BackofficeRouteImport } from './routes/backoffice'
 import { Route as BoutiqueRouteImport } from './routes/boutique'
 import { Route as ConnexionRouteImport } from './routes/connexion'
+import { Route as ProduitsIntelligentsRouteImport } from './routes/produits-intelligents'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -34,18 +35,25 @@ const ConnexionRoute = ConnexionRouteImport.update({
   path: '/connexion',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProduitsIntelligentsRoute = ProduitsIntelligentsRouteImport.update({
+  id: '/produits-intelligents',
+  path: '/produits-intelligents',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/backoffice': typeof BackofficeRoute
   '/boutique': typeof BoutiqueRoute
   '/connexion': typeof ConnexionRoute
+  '/produits-intelligents': typeof ProduitsIntelligentsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/backoffice': typeof BackofficeRoute
   '/boutique': typeof BoutiqueRoute
   '/connexion': typeof ConnexionRoute
+  '/produits-intelligents': typeof ProduitsIntelligentsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -53,13 +61,22 @@ export interface FileRoutesById {
   '/backoffice': typeof BackofficeRoute
   '/boutique': typeof BoutiqueRoute
   '/connexion': typeof ConnexionRoute
+  '/produits-intelligents': typeof ProduitsIntelligentsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/backoffice' | '/boutique' | '/connexion'
+  fullPaths:
+    '/' | '/backoffice' | '/boutique' | '/connexion' | '/produits-intelligents'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/backoffice' | '/boutique' | '/connexion'
-  id: '__root__' | '/' | '/backoffice' | '/boutique' | '/connexion'
+  to:
+    '/' | '/backoffice' | '/boutique' | '/connexion' | '/produits-intelligents'
+  id:
+    | '__root__'
+    | '/'
+    | '/backoffice'
+    | '/boutique'
+    | '/connexion'
+    | '/produits-intelligents'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -67,6 +84,7 @@ export interface RootRouteChildren {
   BackofficeRoute: typeof BackofficeRoute
   BoutiqueRoute: typeof BoutiqueRoute
   ConnexionRoute: typeof ConnexionRoute
+  ProduitsIntelligentsRoute: typeof ProduitsIntelligentsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -99,6 +117,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ConnexionRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/produits-intelligents': {
+      id: '/produits-intelligents'
+      path: '/produits-intelligents'
+      fullPath: '/produits-intelligents'
+      preLoaderRoute: typeof ProduitsIntelligentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -107,6 +132,7 @@ const rootRouteChildren: RootRouteChildren = {
   BackofficeRoute: BackofficeRoute,
   BoutiqueRoute: BoutiqueRoute,
   ConnexionRoute: ConnexionRoute,
+  ProduitsIntelligentsRoute: ProduitsIntelligentsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

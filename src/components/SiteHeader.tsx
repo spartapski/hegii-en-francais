@@ -14,7 +14,7 @@ export function SiteHeader({ cartCount = 0 }: { cartCount?: number }) {
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6">
           <Link to="/" className="font-display text-2xl tracking-widest">AURÉLIS</Link>
           <nav className="hidden gap-8 text-sm md:flex">
-            {([["/", "Accueil"], ["/boutique", "Boutique"]] as const).map(([to, l]) => (
+            {([["/", "Accueil"], ["/produits-intelligents", "Produits intelligents"], ["/boutique", "Boutique"]] as const).map(([to, l]) => (
               <Link key={to} to={to} className="group relative py-1" activeOptions={{ exact: true }}>{l}<span className="absolute bottom-0 left-0 h-px w-0 bg-accent transition-all duration-300 group-hover:w-full" /></Link>
             ))}
           </nav>
