@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BackofficeRouteImport } from './routes/backoffice'
+import { Route as BoutiqueRouteImport } from './routes/boutique'
 import { Route as ConnexionRouteImport } from './routes/connexion'
 
 const IndexRoute = IndexRouteImport.update({
@@ -23,6 +24,11 @@ const BackofficeRoute = BackofficeRouteImport.update({
   path: '/backoffice',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BoutiqueRoute = BoutiqueRouteImport.update({
+  id: '/boutique',
+  path: '/boutique',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ConnexionRoute = ConnexionRouteImport.update({
   id: '/connexion',
   path: '/connexion',
@@ -32,30 +38,34 @@ const ConnexionRoute = ConnexionRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/backoffice': typeof BackofficeRoute
+  '/boutique': typeof BoutiqueRoute
   '/connexion': typeof ConnexionRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/backoffice': typeof BackofficeRoute
+  '/boutique': typeof BoutiqueRoute
   '/connexion': typeof ConnexionRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/backoffice': typeof BackofficeRoute
+  '/boutique': typeof BoutiqueRoute
   '/connexion': typeof ConnexionRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/backoffice' | '/connexion'
+  fullPaths: '/' | '/backoffice' | '/boutique' | '/connexion'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/backoffice' | '/connexion'
-  id: '__root__' | '/' | '/backoffice' | '/connexion'
+  to: '/' | '/backoffice' | '/boutique' | '/connexion'
+  id: '__root__' | '/' | '/backoffice' | '/boutique' | '/connexion'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   BackofficeRoute: typeof BackofficeRoute
+  BoutiqueRoute: typeof BoutiqueRoute
   ConnexionRoute: typeof ConnexionRoute
 }
 
@@ -75,6 +85,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BackofficeRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/boutique': {
+      id: '/boutique'
+      path: '/boutique'
+      fullPath: '/boutique'
+      preLoaderRoute: typeof BoutiqueRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/connexion': {
       id: '/connexion'
       path: '/connexion'
@@ -88,6 +105,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BackofficeRoute: BackofficeRoute,
+  BoutiqueRoute: BoutiqueRoute,
   ConnexionRoute: ConnexionRoute,
 }
 export const routeTree = rootRouteImport

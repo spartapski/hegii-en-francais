@@ -1,13 +1,17 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import hero from "@/assets/hero-bathroom.jpg";
-import toilet from "@/assets/smart-toilet.jpg";
+import dark from "@/assets/banner-dark.jpg";
 import vanity from "@/assets/vanity.jpg";
+import { SiteHeader, SiteFooter } from "@/components/SiteHeader";
+import { Reveal } from "@/components/Reveal";
+import { products, formatPrice } from "@/lib/products";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Aurélis — WC intelligents & salles de bain design" },
-      { name: "description", content: "Découvrez nos WC intelligents, meubles vasques et solutions de salle de bain connectées." },
+      { name: "description", content: "Découvrez nos WC intelligents, abattants lavants et meubles de salle de bain." },
       { property: "og:title", content: "Aurélis — WC intelligents & salles de bain design" },
       { property: "og:description", content: "Le confort intelligent pour votre salle de bain." },
       { property: "og:type", content: "website" },
@@ -17,70 +21,70 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const products = [
-  { img: toilet, name: "WC intelligent Série S", desc: "Siège chauffant, lavage tiède, séchage et chasse automatique." },
-  { img: vanity, name: "Meuble vasque Pierre", desc: "Vasque en pierre naturelle et chêne massif, miroir rétroéclairé." },
-  { img: hero, name: "Collection Harmonie", desc: "Un ensemble complet pour une salle de bain apaisante." },
+const slides = [
+  { img: hero, kicker: "Nouvelle collection 2026", title: "L'intelligence au service de votre bien-être" },
+  { img: dark, kicker: "Série Nocturne", title: "Le WC suspendu, réinventé" },
+  { img: vanity, kicker: "Matières nobles", title: "La pierre et le bois, en harmonie" },
 ];
 
 function Index() {
+  const [i, setI] = useState(0);
+  useEffect(() => { const t = setInterval(() => setI((x) => (x + 1) % slides.length), 6000); return () => clearInterval(t); }, []);
   return (
     <div className="min-h-screen bg-background">
-      <header className="sticky top-0 z-20 border-b border-border bg-background/90 backdrop-blur">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-          <span className="font-display text-2xl tracking-widest">AURÉLIS</span>
-          <nav className="hidden gap-8 text-sm md:flex">
-            <a href="#produits">Produits</a><a href="#technologie">Technologie</a><a href="#apropos">À propos</a><a href="#contact">Contact</a>
-          </nav>
-          <Link to="/connexion" className="rounded-sm bg-primary px-4 py-2 text-xs font-medium uppercase tracking-wider text-primary-foreground">Connexion Backoffice</Link>
-        </div>
-      </header>
-
-      <section className="relative h-[85vh] overflow-hidden">
-        <img src={hero} alt="Salle de bain moderne avec WC intelligent" width={1600} height={912} className="absolute inset-0 h-full w-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-r from-foreground/60 to-transparent" />
-        <div className="relative mx-auto flex h-full max-w-7xl flex-col justify-center px-6 text-primary-foreground">
-          <p className="mb-4 text-xs uppercase tracking-[0.3em]">Nouvelle collection 2026</p>
-          <h1 className="max-w-2xl text-5xl leading-tight md:text-7xl">L'intelligence au service de votre bien-être</h1>
-          <a href="#produits" className="mt-8 w-fit border border-primary-foreground px-8 py-3 text-sm uppercase tracking-wider">Découvrir</a>
+      <SiteHeader />
+      <section className="relative h-[88vh] overflow-hidden bg-primary">
+        {slides.map((s, k) => (
+          <div key={k} className={`absolute inset-0 transition-opacity duration-1000 ${k === i ? "opacity-100" : "opacity-0"}`}>
+            <img src={s.img} alt={s.title} className={`h-full w-full object-cover ${k === i ? "animate-ken-burns" : ""}`} />
+            <div className="absolute inset-0 bg-gradient-to-r from-foreground/70 via-foreground/20 to-transparent" />
+            {k === i && (
+              <div className="relative mx-auto flex h-full max-w-7xl flex-col justify-center px-6 text-primary-foreground" style={{ marginTop: "-88vh" }}>
+                <p className="animate-fade-up mb-4 text-xs uppercase tracking-[0.3em]">{s.kicker}</p>
+                <h1 className="animate-fade-up max-w-2xl text-5xl leading-tight md:text-7xl" style={{ animationDelay: "150ms" }}>{s.title}</h1>
+                <Link to="/boutique" className="animate-fade-up mt-8 w-fit border border-primary-foreground px-8 py-3 text-sm uppercase tracking-wider transition hover:bg-primary-foreground hover:text-primary" style={{ animationDelay: "300ms" }}>Acheter maintenant</Link>
+              </div>
+            )}
+          </div>
+        ))}
+        <div className="absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 gap-3">
+          {slides.map((_, k) => <button key={k} aria-label={`Diapositive ${k + 1}`} onClick={() => setI(k)} className={`h-0.5 transition-all duration-500 ${k === i ? "w-12 bg-primary-foreground" : "w-6 bg-primary-foreground/40"}`} />)}
         </div>
       </section>
 
-      <section id="produits" className="mx-auto max-w-7xl px-6 py-24">
-        <h2 className="mb-12 text-center text-4xl md:text-5xl">Nos produits phares</h2>
-        <div className="grid gap-10 md:grid-cols-3">
-          {products.map((p) => (
-            <article key={p.name} className="group">
-              <div className="overflow-hidden bg-muted"><img src={p.img} alt={p.name} loading="lazy" width={1024} height={1024} className="aspect-square w-full object-cover transition duration-700 group-hover:scale-105" /></div>
-              <h3 className="mt-5 text-2xl">{p.name}</h3>
-              <p className="mt-2 text-sm text-muted-foreground">{p.desc}</p>
-            </article>
+      <section className="mx-auto max-w-7xl px-6 py-24">
+        <Reveal><div className="mb-12 flex items-end justify-between"><h2 className="text-4xl md:text-5xl">Meilleures ventes</h2><Link to="/boutique" className="text-sm underline underline-offset-4">Voir la boutique</Link></div></Reveal>
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          {products.slice(0, 4).map((p, k) => (
+            <Reveal key={p.id} delay={k * 120}>
+              <Link to="/boutique" className="group block">
+                <div className="relative overflow-hidden bg-muted">
+                  {p.badge && <span className="absolute left-3 top-3 z-10 bg-accent px-2 py-1 text-xs text-accent-foreground">{p.badge}</span>}
+                  <img src={p.img} alt={p.name} loading="lazy" className="aspect-square w-full object-cover transition duration-700 group-hover:scale-110" />
+                </div>
+                <h3 className="mt-4 text-xl">{p.name}</h3>
+                <p className="mt-1 text-sm"><span className="font-semibold">{formatPrice(p.price)}</span>{p.oldPrice && <span className="ml-2 text-muted-foreground line-through">{formatPrice(p.oldPrice)}</span>}</p>
+              </Link>
+            </Reveal>
           ))}
         </div>
       </section>
 
-      <section id="technologie" className="bg-secondary py-24">
+      <section className="relative h-[70vh] overflow-hidden">
+        <img src={dark} alt="WC suspendu Nocturne" loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
+        <div className="relative mx-auto flex h-full max-w-7xl items-center px-6 text-primary-foreground">
+          <Reveal className="max-w-md"><p className="text-xs uppercase tracking-[0.3em] opacity-80">Offre limitée</p><h2 className="mt-4 text-5xl">Jusqu'à -20 % sur la Série Nocturne</h2><Link to="/boutique" className="mt-8 inline-block bg-accent px-8 py-3 text-sm uppercase tracking-wider text-accent-foreground">J'en profite</Link></Reveal>
+        </div>
+      </section>
+
+      <section className="bg-secondary py-24">
         <div className="mx-auto grid max-w-7xl gap-12 px-6 md:grid-cols-4">
-          {[["Hygiène", "Auto-nettoyage UV et buse antibactérienne."], ["Confort", "Température de l'eau et du siège réglable."], ["Économie", "Chasse d'eau optimisée, jusqu'à 30 % d'eau en moins."], ["Connecté", "Pilotage par télécommande et application."]].map(([t, d]) => (
-            <div key={t}><h3 className="text-3xl text-accent">{t}</h3><p className="mt-3 text-sm text-muted-foreground">{d}</p></div>
+          {[["Hygiène", "Auto-nettoyage UV et buse antibactérienne."], ["Confort", "Eau et siège à température réglable."], ["Économie", "Jusqu'à 30 % d'eau en moins."], ["Connecté", "Télécommande et application mobile."]].map(([t, d], k) => (
+            <Reveal key={t} delay={k * 120}><h3 className="text-3xl text-accent">{t}</h3><p className="mt-3 text-sm text-muted-foreground">{d}</p></Reveal>
           ))}
         </div>
       </section>
-
-      <section id="apropos" className="mx-auto grid max-w-7xl items-center gap-12 px-6 py-24 md:grid-cols-2">
-        <img src={vanity} alt="Meuble vasque" loading="lazy" width={1024} height={1024} className="aspect-[4/5] w-full object-cover" />
-        <div>
-          <h2 className="text-4xl md:text-5xl">Un savoir-faire pensé pour chaque foyer</h2>
-          <p className="mt-6 text-muted-foreground">Nous concevons des équipements de salle de bain qui allient design épuré, matériaux durables et technologies intelligentes, pour transformer un geste quotidien en un moment de confort.</p>
-        </div>
-      </section>
-
-      <footer id="contact" className="bg-primary py-16 text-primary-foreground">
-        <div className="mx-auto flex max-w-7xl flex-col justify-between gap-6 px-6 md:flex-row">
-          <span className="font-display text-2xl tracking-widest">AURÉLIS</span>
-          <p className="text-sm opacity-80">contact@aurelis.fr · © 2026 Aurélis. Tous droits réservés.</p>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }
