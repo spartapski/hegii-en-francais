@@ -5,6 +5,7 @@ import toilet from "@/assets/smart-toilet.jpg";
 import bidet from "@/assets/bidet-seat.jpg";
 import hero from "@/assets/hero-bathroom.jpg";
 import { SiteHeader, SiteFooter } from "@/components/SiteHeader";
+import { ProductCoverflow } from "@/components/ProductCoverflow";
 import { Reveal } from "@/components/Reveal";
 import { products, formatPrice } from "@/lib/products";
 
@@ -54,6 +55,8 @@ function Page() {
           <p className="animate-fade-up mt-4 max-w-lg opacity-90" style={{ animationDelay: "300ms" }}>Le confort d'une technologie pensée pour chaque instant.</p>
         </div>
       </section>
+
+      <ProductCoverflow />
 
       <section className="mx-auto max-w-7xl px-6 py-20">
         <Reveal><h2 className="mb-12 text-center text-4xl">Des fonctions qui changent tout</h2></Reveal>
