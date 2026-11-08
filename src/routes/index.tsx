@@ -4,8 +4,8 @@ import hero from "@/assets/hero-bathroom.jpg";
 import dark from "@/assets/banner-dark.jpg";
 import vanity from "@/assets/vanity.jpg";
 import { SiteHeader, SiteFooter } from "@/components/SiteHeader";
+import { ProductCoverflow } from "@/components/ProductCoverflow";
 import { Reveal } from "@/components/Reveal";
-import { products, formatPrice } from "@/lib/products";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -52,23 +52,7 @@ function Index() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-6 py-24">
-        <Reveal><div className="mb-12 flex items-end justify-between"><h2 className="text-4xl md:text-5xl">Meilleures ventes</h2><Link to="/boutique" className="text-sm underline underline-offset-4">Voir la boutique</Link></div></Reveal>
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          {products.slice(0, 4).map((p, k) => (
-            <Reveal key={p.id} delay={k * 120}>
-              <Link to="/boutique" className="group block">
-                <div className="relative overflow-hidden bg-muted">
-                  {p.badge && <span className="absolute left-3 top-3 z-10 bg-accent px-2 py-1 text-xs text-accent-foreground">{p.badge}</span>}
-                  <img src={p.img} alt={p.name} loading="lazy" className="aspect-square w-full object-cover transition duration-700 group-hover:scale-110" />
-                </div>
-                <h3 className="mt-4 text-xl">{p.name}</h3>
-                <p className="mt-1 text-sm"><span className="font-semibold">{formatPrice(p.price)}</span>{p.oldPrice && <span className="ml-2 text-muted-foreground line-through">{formatPrice(p.oldPrice)}</span>}</p>
-              </Link>
-            </Reveal>
-          ))}
-        </div>
-      </section>
+      <ProductCoverflow />
 
       <section className="relative h-[70vh] overflow-hidden">
         <img src={dark} alt="WC suspendu Nocturne" loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
