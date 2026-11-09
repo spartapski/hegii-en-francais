@@ -1,16 +1,16 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-export function SiteHeader({ cartCount = 0 }: { cartCount?: number }) {
+export function SiteHeader({ cartCount = 0, overlay = false }: { cartCount?: number; overlay?: boolean }) {
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => { const f = () => setScrolled(window.scrollY > 40); f(); window.addEventListener("scroll", f); return () => window.removeEventListener("scroll", f); }, []);
   return (
     <>
-      <div className="overflow-hidden bg-primary py-2 text-xs uppercase tracking-widest text-primary-foreground">
+      {!overlay && <div className="overflow-hidden bg-primary py-2 text-xs uppercase tracking-widest text-primary-foreground">
         <div className="animate-marquee flex w-max gap-16 whitespace-nowrap">
           {Array.from({ length: 2 }).flatMap((_, i) => ["Livraison offerte dès 500 €", "Garantie 5 ans", "Installation par nos experts", "Paiement en 3× sans frais"].map((t) => <span key={i + t}>{t}</span>))}
         </div>
-      </div>
-      <header className={`sticky top-0 z-30 border-b transition-all duration-500 ${scrolled ? "border-border bg-background/95 py-2 shadow-sm backdrop-blur" : "border-transparent bg-background py-4"}`}>
+      </div>}
+      <header className={`${overlay ? "fixed inset-x-0" : "sticky"} top-0 z-30 border-b transition-all duration-500 ${scrolled ? "border-border bg-background/95 py-2 text-foreground shadow-sm backdrop-blur" : overlay ? "border-transparent bg-transparent py-6 text-primary-foreground" : "border-transparent bg-background py-4"}`}>
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6">
           <Link to="/" className="font-display text-2xl tracking-widest">AURÉLIS</Link>
           <nav className="hidden gap-8 text-sm md:flex">

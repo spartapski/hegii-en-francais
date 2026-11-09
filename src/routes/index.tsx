@@ -32,8 +32,8 @@ function Index() {
   useEffect(() => { const t = setInterval(() => setI((x) => (x + 1) % slides.length), 6000); return () => clearInterval(t); }, []);
   return (
     <div className="min-h-screen bg-background">
-      <SiteHeader />
-      <section className="relative h-[88vh] overflow-hidden bg-primary">
+      <SiteHeader overlay />
+      <section className="relative h-screen overflow-hidden bg-primary">
         {slides.map((s, k) => (
           <div key={k} className={`absolute inset-0 transition-opacity duration-1000 ${k === i ? "opacity-100" : "opacity-0"}`}>
             <img src={s.img} alt={s.title} className={`h-full w-full object-cover ${k === i ? "animate-ken-burns" : ""}`} />
