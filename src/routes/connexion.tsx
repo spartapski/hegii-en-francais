@@ -5,9 +5,9 @@ import { supabase } from "@/integrations/supabase/client";
 export const Route = createFileRoute("/connexion")({
   head: () => ({
     meta: [
-      { title: "Connexion Backoffice — Aurélis" },
-      { name: "description", content: "Accès sécurisé à l'espace d'administration Aurélis." },
-      { property: "og:title", content: "Connexion Backoffice — Aurélis" },
+      { title: "Connexion Backoffice — Deco best" },
+      { name: "description", content: "Accès sécurisé à l'espace d'administration Deco best." },
+      { property: "og:title", content: "Connexion Backoffice — Deco best" },
       { property: "og:description", content: "Espace d'administration." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -42,7 +42,7 @@ function Connexion() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-secondary px-4">
       <form onSubmit={submit} className="w-full max-w-sm bg-card p-10 shadow-sm">
-        <Link to="/" className="font-display text-2xl tracking-widest">AURÉLIS</Link>
+        <Link to="/" className="font-display text-2xl tracking-widest">DECO BEST</Link>
         <h1 className="mt-6 text-3xl">{mode === "in" ? "Connexion Backoffice" : "Créer un compte"}</h1>
         <label className="mt-8 block text-xs uppercase tracking-wider text-muted-foreground">E-mail</label>
         <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} className="mt-2 w-full border border-input bg-background px-3 py-2 outline-none focus:border-ring" />

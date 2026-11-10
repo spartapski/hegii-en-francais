@@ -12,9 +12,9 @@ import { products, formatPrice } from "@/lib/products";
 export const Route = createFileRoute("/produits-intelligents")({
   head: () => ({
     meta: [
-      { title: "Produits intelligents — Aurélis" },
+      { title: "Produits intelligents — Deco best" },
       { name: "description", content: "WC intelligents et abattants lavants : fonctions, comparatif et prix." },
-      { property: "og:title", content: "Produits intelligents — Aurélis" },
+      { property: "og:title", content: "Produits intelligents — Deco best" },
       { property: "og:description", content: "Découvrez notre sélection de produits intelligents." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -46,10 +46,10 @@ function Page() {
   return (
     <div className="min-h-screen bg-background">
       <SiteHeader />
-      <section className="relative h-[75vh] overflow-hidden bg-primary">
+      <section className="relative h-[75vh] overflow-hidden bg-card">
         <img src={hero} alt="Produits intelligents" className="animate-ken-burns absolute inset-0 h-full w-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-t from-foreground/70 to-transparent" />
-        <div className="relative mx-auto flex h-full max-w-7xl flex-col justify-end px-6 pb-20 text-primary-foreground">
+        <div className="absolute inset-0 bg-gradient-to-t from-background/70 to-transparent" />
+        <div className="relative mx-auto flex h-full max-w-7xl flex-col justify-end px-6 pb-20 text-foreground">
           <p className="animate-fade-up text-xs uppercase tracking-[0.3em]">Sélection</p>
           <h1 className="animate-fade-up mt-3 text-5xl md:text-7xl" style={{ animationDelay: "150ms" }}>Produits intelligents</h1>
           <p className="animate-fade-up mt-4 max-w-lg opacity-90" style={{ animationDelay: "300ms" }}>Le confort d'une technologie pensée pour chaque instant.</p>

@@ -1,42 +1,80 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-export function SiteHeader({ cartCount = 0, overlay = false }: { cartCount?: number; overlay?: boolean }) {
-  const [scrolled, setScrolled] = useState(false);
-  useEffect(() => { const f = () => setScrolled(window.scrollY > 40); f(); window.addEventListener("scroll", f); return () => window.removeEventListener("scroll", f); }, []);
+import { Headphones, Search, ShoppingCart, User } from "lucide-react";
+
+export function Logo({ compact = false }: { compact?: boolean }) {
   return (
-    <>
-      {!overlay && <div className="overflow-hidden bg-primary py-2 text-xs uppercase tracking-widest text-primary-foreground">
-        <div className="animate-marquee flex w-max gap-16 whitespace-nowrap">
-          {Array.from({ length: 2 }).flatMap((_, i) => ["Livraison offerte dès 500 €", "Garantie 5 ans", "Installation par nos experts", "Paiement en 3× sans frais"].map((t) => <span key={i + t}>{t}</span>))}
-        </div>
-      </div>}
-      <header className={`${overlay ? "fixed inset-x-0" : "sticky"} top-0 z-30 border-b transition-all duration-500 ${scrolled ? "border-border bg-background/95 py-2 text-foreground shadow-sm backdrop-blur" : overlay ? "border-transparent bg-transparent py-6 text-primary-foreground" : "border-transparent bg-background py-4"}`}>
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6">
-          <Link to="/" className="font-display text-2xl tracking-widest">AURÉLIS</Link>
-          <nav className="hidden gap-8 text-sm md:flex">
-            {([["/", "Accueil"], ["/produits-intelligents", "Produits intelligents"], ["/boutique", "Boutique"]] as const).map(([to, l]) => (
-              <Link key={to} to={to} className="group relative py-1" activeOptions={{ exact: true }}>{l}<span className="absolute bottom-0 left-0 h-px w-0 bg-accent transition-all duration-300 group-hover:w-full" /></Link>
-            ))}
-          </nav>
-          <div className="flex items-center gap-4">
-            <Link to="/boutique" className="text-sm">Panier ({cartCount})</Link>
-            <Link to="/connexion" className="rounded-sm bg-primary px-4 py-2 text-xs font-medium uppercase tracking-wider text-primary-foreground transition hover:bg-accent">Connexion Backoffice</Link>
-          </div>
-        </div>
-      </header>
-    </>
+    <Link to="/" className="flex items-center gap-3">
+      <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-foreground font-display text-lg font-extrabold text-destructive">
+        D<span className="text-primary">B</span>
+      </span>
+      <span className="leading-none">
+        <span className="font-display text-2xl font-extrabold text-destructive">Deco <span className="text-primary">best</span></span>
+        {!compact && <span className="mt-1 block text-[10px] font-semibold uppercase tracking-wider text-foreground">Sanitaire · Accessoire de verre</span>}
+      </span>
+    </Link>
   );
 }
-export function SiteFooter() {
+
+const nav = [
+  { to: "/", label: "Accueil" },
+  { to: "/produits-intelligents", label: "Produits intelligents" },
+  { to: "/boutique", label: "Boutique" },
+] as const;
+
+export function SiteHeader({ cartCount = 0 }: { cartCount?: number; overlay?: boolean }) {
+  const [scrolled, setScrolled] = useState(false);
+  const [q, setQ] = useState("");
+  const navigate = useNavigate();
+  useEffect(() => { const f = () => setScrolled(window.scrollY > 40); f(); window.addEventListener("scroll", f); return () => window.removeEventListener("scroll", f); }, []);
   return (
-    <footer className="bg-primary py-16 text-primary-foreground">
+    <header className={`sticky top-0 z-40 bg-background/95 backdrop-blur transition-shadow duration-500 ${scrolled ? "shadow-lg shadow-background/60" : ""}`}>
+      <div className={`mx-auto flex max-w-7xl items-center gap-6 px-6 transition-all duration-500 ${scrolled ? "py-2" : "py-4"}`}>
+        <Logo compact={scrolled} />
+        <form onSubmit={(e) => { e.preventDefault(); navigate({ to: "/boutique" }); }} className="mx-auto hidden w-full max-w-md items-center overflow-hidden rounded-full border border-border bg-card md:flex">
+          <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Rechercher un produit…" aria-label="Rechercher un produit"
+            className="w-full bg-transparent px-5 py-2.5 text-sm outline-none placeholder:text-muted-foreground" />
+          <button aria-label="Rechercher" className="bg-primary px-5 py-2.5 text-primary-foreground transition hover:brightness-110"><Search className="h-4 w-4" /></button>
+        </form>
+        <div className="ml-auto flex items-center gap-6 text-xs">
+          <a href="#contact" className="hidden flex-col items-center gap-1 transition hover:text-primary lg:flex"><Headphones className="h-5 w-5" />Service client</a>
+          <Link to="/connexion" className="flex flex-col items-center gap-1 transition hover:text-primary"><User className="h-5 w-5" />Backoffice</Link>
+          <Link to="/boutique" className="relative flex flex-col items-center gap-1 transition hover:text-primary">
+            <ShoppingCart className="h-5 w-5" />Panier
+            <span className="absolute -right-2 -top-2 flex h-4 min-w-4 items-center justify-center rounded-full bg-primary px-1 text-[10px] font-bold text-primary-foreground">{cartCount}</span>
+          </Link>
+        </div>
+      </div>
+      <nav className="border-y border-border bg-card">
+        <div className="mx-auto flex max-w-7xl items-center gap-1 overflow-x-auto px-6 text-sm font-medium">
+          {nav.map((n) => (
+            <Link key={n.to} to={n.to} activeOptions={{ exact: true }}
+              className="whitespace-nowrap px-5 py-3 transition hover:text-primary"
+              activeProps={{ className: "bg-primary text-primary-foreground hover:text-primary-foreground" }}>{n.label}</Link>
+          ))}
+          <Link to="/boutique" className="ml-auto my-2 whitespace-nowrap rounded-full bg-destructive px-4 py-1.5 text-destructive-foreground transition hover:brightness-110">Promotions</Link>
+          <a href="#contact" className="whitespace-nowrap px-5 py-3 transition hover:text-primary">Contact</a>
+        </div>
+      </nav>
+    </header>
+  );
+}
+
+export function SiteFooter() {
+  const cols: [string, string[]][] = [
+    ["Boutique", ["Sanitaire", "Lavabos & meubles", "Douches", "Smart locks"]],
+    ["Service", ["Livraison partout au Maroc", "Garantie", "Installation", "SAV"]],
+    ["Contact", ["contact@decobest.ma", "+212 5 00 00 00 00"]],
+  ];
+  return (
+    <footer id="contact" className="border-t-2 border-primary bg-card py-16">
       <div className="mx-auto grid max-w-7xl gap-10 px-6 md:grid-cols-4">
-        <div><span className="font-display text-2xl tracking-widest">AURÉLIS</span><p className="mt-4 text-sm opacity-70">Salles de bain intelligentes.</p></div>
-        {[["Boutique", ["WC intelligents", "Abattants", "Meubles"]], ["Service", ["Livraison", "Garantie", "SAV"]], ["Contact", ["contact@aurelis.fr", "+33 1 00 00 00 00"]]].map(([t, items]) => (
-          <div key={t as string}><h4 className="mb-4 text-xs uppercase tracking-widest opacity-70">{t as string}</h4>{(items as string[]).map((i) => <p key={i} className="mb-2 text-sm">{i}</p>)}</div>
+        <div><Logo /><p className="mt-4 text-sm text-muted-foreground">Solutions complètes pour votre salle de bain, cuisine et aménagement en verre.</p></div>
+        {cols.map(([t, items]) => (
+          <div key={t}><h4 className="mb-4 text-sm font-bold text-primary">{t}</h4>{items.map((i) => <p key={i} className="mb-2 text-sm text-muted-foreground">{i}</p>)}</div>
         ))}
       </div>
-      <p className="mx-auto mt-12 max-w-7xl px-6 text-xs opacity-60">© 2026 Aurélis. Tous droits réservés.</p>
+      <p className="mx-auto mt-12 max-w-7xl px-6 text-xs text-muted-foreground">© 2026 Deco best. Tous droits réservés.</p>
     </footer>
   );
 }

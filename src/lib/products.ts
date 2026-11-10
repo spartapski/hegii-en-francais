@@ -13,4 +13,4 @@ export const products: Product[] = [
   { id: "h1", name: "Ensemble Harmonie", category: "Meubles", price: 2490, oldPrice: 2890, img: hero, badge: "Best-seller" },
   { id: "b2", name: "Abattant lavant Essentiel", category: "Abattants", price: 299, img: bidet },
 ];
-export const formatPrice = (n: number) => new Intl.NumberFormat("fr-FR", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(n);
+export const formatPrice = (n: number) => `${new Intl.NumberFormat("fr-FR", { maximumFractionDigits: 0 }).format(n).replace(/\s/g, " ")} DH`;

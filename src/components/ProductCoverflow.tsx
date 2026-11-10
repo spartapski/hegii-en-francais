@@ -47,12 +47,12 @@ export function ProductCoverflow() {
   useEffect(() => { const t = setInterval(() => go(1), 5000); return () => clearInterval(t); }, [i, cat]);
   const cur = items[i % n]!;
   return (
-    <section className="relative h-[620px] overflow-hidden bg-primary text-primary-foreground">
+    <section className="relative h-[620px] overflow-hidden bg-background text-foreground">
       <img src={bg} alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover" />
       <div className="relative z-10 flex flex-wrap justify-center gap-2 px-4 pt-8">
         {categories.map((c, k) => (
           <button key={c.label} onClick={() => { setCat(k); setI(0); }}
-            className={`border px-5 py-2 text-xs uppercase tracking-widest transition ${k === cat ? "border-accent bg-accent text-accent-foreground" : "border-primary-foreground/30 hover:border-accent"}`}>{c.label}</button>
+            className={`rounded-full border px-5 py-2 text-xs uppercase tracking-widest transition ${k === cat ? "border-accent bg-accent text-accent-foreground" : "border-foreground/30 hover:border-accent"}`}>{c.label}</button>
         ))}
       </div>
       <div key={cat} className="animate-fade-up absolute inset-0">

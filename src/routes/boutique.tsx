@@ -8,9 +8,9 @@ import { products, formatPrice } from "@/lib/products";
 export const Route = createFileRoute("/boutique")({
   head: () => ({
     meta: [
-      { title: "Boutique — Aurélis" },
+      { title: "Boutique — Deco best" },
       { name: "description", content: "WC intelligents, abattants lavants et meubles de salle de bain : prix et promotions." },
-      { property: "og:title", content: "Boutique — Aurélis" },
+      { property: "og:title", content: "Boutique — Deco best" },
       { property: "og:description", content: "Tous nos produits et leurs prix." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -30,9 +30,9 @@ function Boutique() {
     <div className="min-h-screen bg-background">
       <SiteHeader cartCount={cart.length} />
       <section className="relative h-72 overflow-hidden">
-        <img src={vanity} alt="Boutique Aurélis" className="animate-ken-burns absolute inset-0 h-full w-full object-cover" />
-        <div className="absolute inset-0 bg-foreground/50" />
-        <div className="relative flex h-full items-center justify-center text-primary-foreground"><h1 className="animate-fade-up text-6xl">Boutique</h1></div>
+        <img src={vanity} alt="Boutique Deco best" className="animate-ken-burns absolute inset-0 h-full w-full object-cover" />
+        <div className="absolute inset-0 bg-background/60" />
+        <div className="relative flex h-full items-center justify-center text-foreground"><h1 className="animate-fade-up text-6xl">Boutique</h1></div>
       </section>
       <main className="mx-auto max-w-7xl px-6 py-16">
         <div className="mb-10 flex flex-wrap gap-3">
