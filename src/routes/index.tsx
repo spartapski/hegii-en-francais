@@ -5,6 +5,7 @@ import dark from "@/assets/banner-dark.jpg";
 import vanity from "@/assets/vanity.jpg";
 import { SiteHeader, SiteFooter } from "@/components/SiteHeader";
 import { ProductCoverflow } from "@/components/ProductCoverflow";
+import { BannerCarousel } from "@/components/BannerCarousel";
 import { Reveal } from "@/components/Reveal";
 
 export const Route = createFileRoute("/")({
@@ -51,6 +52,8 @@ function Index() {
           {slides.map((_, k) => <button key={k} aria-label={`Diapositive ${k + 1}`} onClick={() => setI(k)} className={`h-0.5 transition-all duration-500 ${k === i ? "w-12 bg-primary-foreground" : "w-6 bg-primary-foreground/40"}`} />)}
         </div>
       </section>
+
+      <BannerCarousel />
 
       <ProductCoverflow />
 
