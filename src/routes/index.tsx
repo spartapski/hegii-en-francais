@@ -5,11 +5,7 @@ import showroom from "@/assets/showroom-night.jpg";
 import hero from "@/assets/hero-bathroom.jpg";
 import dark from "@/assets/banner-dark.jpg";
 import vanity from "@/assets/vanity.jpg";
-import toiletPng from "@/assets/toilet-a.png";
-import showerPng from "@/assets/shower-a.png";
-import mirrorPng from "@/assets/mirror-a.png";
 import lockPng from "@/assets/lock-a.png";
-import homePng from "@/assets/home-a.png";
 import { SiteHeader, SiteFooter } from "@/components/SiteHeader";
 import { ProductCoverflow } from "@/components/ProductCoverflow";
 import { BannerCarousel } from "@/components/BannerCarousel";
@@ -34,15 +30,6 @@ const slides = [
   { img: showroom, a: "Sanitaire &", b: "Accessoire", c: "de Verre", text: "Solutions complètes pour votre salle de bain, cuisine et aménagement en verre." },
   { img: hero, a: "WC", b: "intelligents", c: "nouvelle génération", text: "Lavage tiède, siège chauffant et ouverture automatique." },
   { img: vanity, a: "Lavabos &", b: "Meubles", c: "sur mesure", text: "Pierre, bois et lumière pour une salle de bain qui vous ressemble." },
-];
-
-const univers = [
-  { img: toiletPng, label: "Sanitaire" },
-  { img: vanity, label: "Lavabos & Meubles", cover: true },
-  { img: showerPng, label: "Douche & Colonne" },
-  { img: mirrorPng, label: "Miroirs" },
-  { img: lockPng, label: "Smart Locks" },
-  { img: homePng, label: "Maison connectée" },
 ];
 
 function SectionTitle({ a, b, sub }: { a: string; b: string; sub?: string }) {
@@ -116,24 +103,6 @@ function Index() {
         </div>
       </section>
 
-      {/* Nos univers */}
-      <section className="mx-auto max-w-7xl px-6 py-20">
-        <SectionTitle a="Nos" b="Univers" sub="Découvrez nos gammes de produits" />
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
-          {univers.map((u, k) => (
-            <Reveal key={u.label} delay={k * 80}>
-              <Link to="/boutique" className="glow-border glow-border-hover group block overflow-hidden rounded-2xl bg-gradient-to-b from-muted to-card">
-                <div className="flex aspect-[4/5] items-center justify-center overflow-hidden">
-                  <img src={u.img} alt={u.label} loading="lazy"
-                    className={`transition-transform duration-700 group-hover:scale-110 ${u.cover ? "h-full w-full object-cover" : "h-[85%] w-[85%] object-contain drop-shadow-2xl"}`} />
-                </div>
-                <p className="border-t border-border bg-card/80 px-3 py-3 text-center text-sm font-semibold">{u.label}</p>
-              </Link>
-            </Reveal>
-          ))}
-        </div>
-      </section>
-
       {/* Smart locks banner */}
       <section className="mx-auto max-w-7xl px-6">
         <Reveal>
@@ -161,7 +130,7 @@ function Index() {
 
       <BannerCarousel />
 
-      <ProductCoverflow />
+      <ProductCoverflow variant="services" />
 
       {/* Inspiration */}
       <section className="relative grid overflow-hidden bg-card md:grid-cols-2">
