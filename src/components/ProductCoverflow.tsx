@@ -58,7 +58,7 @@ export function ProductCoverflow({ variant = "tabs" }: { variant?: "tabs" | "ser
           <Reveal className="mb-10 text-center">
             <div className="flex items-center justify-center gap-6">
               <span className="h-0.5 w-16 bg-primary" />
-              <h2 className="text-4xl md:text-5xl">Nos <span className="text-primary">Services</span></h2>
+              <h2 className="text-4xl md:text-5xl">Nos <span className="text-primary">Produits</span></h2>
               <span className="h-0.5 w-16 bg-primary" />
             </div>
             <p className="mt-3 text-muted-foreground">Choisissez un univers pour découvrir nos produits</p>
