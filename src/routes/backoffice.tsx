@@ -22,9 +22,11 @@ function Backoffice() {
   const [email, setEmail] = useState<string | null>(null);
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => {
-      if (!data.session) nav({ to: "/connexion" });
-      else setEmail(data.session.user.email ?? "");
+    supabase.auth.getUser().then(async ({ data }) => {
+      if (!data.user) return nav({ to: "/connexion" });
+      const { data: role } = await supabase.from("user_roles").select("role").eq("user_id", data.user.id).eq("role", "admin").maybeSingle();
+      if (!role) { await supabase.auth.signOut(); return nav({ to: "/connexion" }); }
+      setEmail(data.user.email ?? "");
     });
     const { data: sub } = supabase.auth.onAuthStateChange((_e, s) => { if (!s) nav({ to: "/connexion" }); });
     return () => sub.subscription.unsubscribe();
