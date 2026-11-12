@@ -103,6 +103,8 @@ function Index() {
         </div>
       </section>
 
+      <BannerCarousel />
+
       <ProductCoverflow variant="services" />
 
       {/* Smart locks banner */}
@@ -129,8 +131,6 @@ function Index() {
       </section>
 
       <FeaturedProducts />
-
-      <BannerCarousel />
 
       {/* Inspiration */}
       <section className="relative grid overflow-hidden bg-card md:grid-cols-2">
