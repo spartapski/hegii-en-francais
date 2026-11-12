@@ -1,17 +1,23 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Headphones, Search, ShoppingCart, User } from "lucide-react";
+import logoWordmark from "@/assets/logo-decobest-wordmark.png.asset.json";
 
 export function Logo({ compact = false }: { compact?: boolean }) {
   return (
-    <Link to="/" className="flex items-center gap-3">
-      <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-foreground font-display text-lg font-extrabold text-destructive">
-        D<span className="text-primary">B</span>
-      </span>
-      <span className="leading-none">
-        <span className="font-display text-2xl font-extrabold text-destructive">Deco <span className="text-primary">best</span></span>
-        {!compact && <span className="mt-1 block text-[10px] font-semibold uppercase tracking-wider text-foreground">Sanitaire · Accessoire de verre</span>}
-      </span>
+    <Link to="/" className="flex shrink-0 flex-col justify-center">
+      <img
+        src={logoWordmark.url}
+        alt="Deco best"
+        width={811}
+        height={150}
+        className={`w-auto object-contain transition-all duration-500 ${compact ? "h-7" : "h-10"}`}
+      />
+      {!compact && (
+        <span className="mt-1 hidden text-[9px] font-semibold uppercase tracking-[0.18em] text-muted-foreground md:block">
+          Sanitaire · Décoration · Smart Home · Accessoires Inox
+        </span>
+      )}
     </Link>
   );
 }
