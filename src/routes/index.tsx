@@ -83,7 +83,7 @@ function Index() {
           <path d="M45 0 C39 25 37 60 27 100" fill="none" stroke="var(--primary)" strokeWidth="5" vectorEffect="non-scaling-stroke" strokeLinecap="round" />
         </svg>
         <div className="absolute inset-0 bg-gradient-to-r from-background via-background/70 to-transparent md:hidden" />
-        <div key={i} className="relative mx-auto flex h-full max-w-7xl flex-col justify-center px-6 md:px-10">
+        <div key={i} className="relative flex h-full flex-col justify-center px-6 md:px-14 lg:px-20">
           <div className="max-w-md">
             <p className="animate-fade-up flex items-center gap-4 font-serif text-2xl font-bold text-primary">Deco best <span className="h-0.5 w-24 bg-primary" /></p>
             <h1 className="animate-fade-up mt-4 font-serif text-5xl font-extrabold leading-[1.02] md:text-6xl" style={{ animationDelay: "120ms" }}>
