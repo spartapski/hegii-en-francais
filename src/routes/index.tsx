@@ -4,7 +4,7 @@ import { ArrowRight, Bluetooth, ChevronLeft, ChevronRight, CreditCard, Fingerpri
 import showroom from "@/assets/showroom-night.jpg";
 import hero from "@/assets/hero-bathroom.jpg";
 import dark from "@/assets/banner-dark.jpg";
-import vanity from "@/assets/vanity.jpg";
+import lavabo from "@/assets/hero-lavabo-gold.jpg";
 import lockPng from "@/assets/lock-a.png";
 import { SiteHeader, SiteFooter } from "@/components/SiteHeader";
 import { ProductCoverflow } from "@/components/ProductCoverflow";
@@ -27,9 +27,9 @@ export const Route = createFileRoute("/")({
 });
 
 const slides = [
+  { img: lavabo, a: "Lavabos &", b: "Meubles", c: "sur mesure", text: "Pierre, bois et lumière pour une salle de bain qui vous ressemble." },
   { img: showroom, a: "Sanitaire &", b: "Accessoire", c: "de Verre", text: "Solutions complètes pour votre salle de bain, cuisine et aménagement en verre." },
   { img: hero, a: "WC", b: "intelligents", c: "nouvelle génération", text: "Lavage tiède, siège chauffant et ouverture automatique." },
-  { img: vanity, a: "Lavabos &", b: "Meubles", c: "sur mesure", text: "Pierre, bois et lumière pour une salle de bain qui vous ressemble." },
 ];
 
 function SectionTitle({ a, b, sub }: { a: string; b: string; sub?: string }) {
@@ -62,41 +62,56 @@ function Index() {
       <SiteHeader />
 
       {/* Hero */}
-      <section className="relative h-[560px] overflow-hidden bg-background">
-        <div className="absolute inset-y-0 right-0 w-full md:w-[66%]" style={{ filter: "drop-shadow(0 0 30px oklch(0.86 0.175 95 / 0.45))" }}>
-          <div className="absolute inset-0 bg-primary" style={{ clipPath: "polygon(22% 0, 100% 0, 100% 100%, 0 100%)" }} />
-          <div className="absolute inset-0 overflow-hidden" style={{ clipPath: "polygon(23.2% 0, 100% 0, 100% 100%, 1.2% 100%)" }}>
-            {slides.map((sl, k) => (
-              <img key={k} src={sl.img} alt="" aria-hidden width={1600} height={900}
-                className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ${k === i ? "animate-ken-burns opacity-100" : "opacity-0"}`} />
-            ))}
-            <div className="absolute inset-0 bg-gradient-to-r from-background/60 to-transparent md:hidden" />
-          </div>
+      <section className="relative h-[520px] overflow-hidden bg-background md:h-[560px]">
+        <div className="absolute inset-y-0 right-0 w-full md:w-[78%]">
+          {slides.map((sl, k) => (
+            <img key={k} src={sl.img} alt="" aria-hidden width={1600} height={912}
+              className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ${k === i ? "animate-ken-burns opacity-100" : "opacity-0"}`} />
+          ))}
         </div>
-        <div key={i} className="relative mx-auto flex h-full max-w-7xl flex-col justify-center px-6">
+        {/* Curved dark panel + glowing gold edge */}
+        <svg className="pointer-events-none absolute inset-0 hidden h-full w-full md:block" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden>
+          <defs>
+            <linearGradient id="heroFade" x1="0" x2="1" y1="0" y2="0">
+              <stop offset="0" stopColor="var(--background)" />
+              <stop offset="1" stopColor="var(--background)" stopOpacity="0.92" />
+            </linearGradient>
+          </defs>
+          <path d="M0 0 H45 C39 25 37 60 27 100 H0 Z" fill="url(#heroFade)" />
+        </svg>
+        <svg className="pointer-events-none absolute inset-0 hidden h-full w-full md:block" style={{ filter: "drop-shadow(0 0 10px var(--primary)) drop-shadow(0 0 24px var(--primary))" }} viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden>
+          <path d="M45 0 C39 25 37 60 27 100" fill="none" stroke="var(--primary)" strokeWidth="5" vectorEffect="non-scaling-stroke" strokeLinecap="round" />
+        </svg>
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/70 to-transparent md:hidden" />
+        <div key={i} className="relative mx-auto flex h-full max-w-7xl flex-col justify-center px-6 md:px-10">
           <div className="max-w-md">
-            <p className="animate-fade-up text-xl font-bold text-primary">Deco best</p>
-            <h1 className="animate-fade-up mt-2 text-5xl leading-[1.05] md:text-6xl" style={{ animationDelay: "120ms" }}>
-              <span className="text-primary">{s.a}</span><br />{s.b}<br /><span className="text-primary">{s.c}</span>
+            <p className="animate-fade-up flex items-center gap-4 font-serif text-2xl font-bold text-primary">Deco best <span className="h-0.5 w-24 bg-primary" /></p>
+            <h1 className="animate-fade-up mt-4 font-serif text-5xl font-extrabold leading-[1.02] md:text-6xl" style={{ animationDelay: "120ms" }}>
+              {s.a}<br />{s.b}<br /><span className="italic text-primary">{s.c}</span>
             </h1>
-            <p className="animate-fade-up mt-5 text-muted-foreground" style={{ animationDelay: "240ms" }}>{s.text}</p>
-            <div className="animate-fade-up mt-8" style={{ animationDelay: "360ms" }}><CTA to="/boutique">Découvrir nos produits</CTA></div>
+            <span className="animate-fade-up mt-6 block h-0.5 w-24 bg-foreground" style={{ animationDelay: "200ms" }} />
+            <p className="animate-fade-up mt-6 max-w-sm text-lg" style={{ animationDelay: "240ms" }}>{s.text}</p>
+            <div className="animate-fade-up mt-8" style={{ animationDelay: "360ms" }}>
+              <Link to="/boutique" className="inline-flex items-center gap-4 rounded-full bg-primary px-8 py-4 font-bold text-primary-foreground transition hover:gap-6 hover:shadow-[var(--glow)]">
+                Découvrir nos produits<ChevronRight className="h-5 w-5" />
+              </Link>
+            </div>
           </div>
         </div>
-        <div className="absolute bottom-6 left-1/2 z-10 flex -translate-x-1/2 gap-3 md:left-[60%]">
-          {slides.map((_, k) => <button key={k} aria-label={`Diapositive ${k + 1}`} onClick={() => setI(k)} className={`h-3 rounded-full transition-all duration-500 ${k === i ? "w-8 bg-primary" : "w-3 bg-foreground/70 hover:bg-foreground"}`} />)}
+        <div className="absolute bottom-6 left-1/2 z-10 flex -translate-x-1/2 gap-3">
+          {slides.map((_, k) => <button key={k} aria-label={`Diapositive ${k + 1}`} onClick={() => setI(k)} className={`h-4 w-4 rounded-full transition-all duration-500 ${k === i ? "bg-primary shadow-[var(--glow)]" : "bg-foreground/80 hover:bg-foreground"}`} />)}
         </div>
       </section>
 
       {/* Trust bar */}
-      <section className="border-y border-border bg-card">
-        <div className="mx-auto grid max-w-7xl grid-cols-2 gap-6 px-6 py-6 md:grid-cols-4">
-          {[[Truck, "Livraison partout", "au Maroc"], [ShieldCheck, "Produits certifiés", "& de qualité"], [CreditCard, "Paiement sécurisé", "et facile"], [Headphones, "Conseils &", "accompagnement personnalisé"]].map(([Icon, a, b], k) => {
+      <section className="border-b border-border bg-background">
+        <div className="mx-auto grid max-w-7xl grid-cols-2 gap-6 px-6 py-6 md:grid-cols-4 md:gap-0">
+          {[[ShieldCheck, "Produits certifiés", "Qualité & durabilité"], [Truck, "Livraison rapide", "Partout au Maroc"], [CreditCard, "Paiement sécurisé", "100% garanti"], [Headphones, "Conseils &", "accompagnement personnalisé"]].map(([Icon, a, b], k) => {
             const I = Icon as typeof Truck;
             return (
-              <Reveal key={k} delay={k * 100} className="flex items-center gap-4">
-                <I className="h-9 w-9 shrink-0 text-primary" strokeWidth={1.5} />
-                <p className="text-sm leading-snug">{a as string}<br /><span className="text-muted-foreground">{b as string}</span></p>
+              <Reveal key={k} delay={k * 100} className={`flex items-center justify-center gap-4 ${k > 0 ? "md:border-l md:border-border" : ""}`}>
+                <I className="h-10 w-10 shrink-0 text-primary" strokeWidth={1.5} />
+                <p className="text-sm leading-snug"><span className="text-base font-bold">{a as string}</span><br /><span className="text-muted-foreground">{b as string}</span></p>
               </Reveal>
             );
           })}
