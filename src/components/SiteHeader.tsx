@@ -1,10 +1,9 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState, type ComponentType } from "react";
-import { BadgePercent, ChevronDown, Cpu, Headphones, Heart, Home, Layers, Mail, MessageCircle, Search, ShieldCheck, ShoppingCart, Sofa, Sparkles, Star, Truck, User } from "lucide-react";
+import { BadgePercent, ChevronDown, Cpu, Headphones, Heart, Home, Layers, Mail, Search, ShieldCheck, ShoppingCart, Sofa, Sparkles, Star, Truck, User } from "lucide-react";
 import logoWordmark from "@/assets/logo-decobest-wordmark.png.asset.json";
 
 export const PHONE = "+212 6 70 16 40 56";
-const WHATSAPP = "https://wa.me/212670164056";
 
 export function Logo({ compact = false }: { compact?: boolean }) {
   return (
@@ -50,7 +49,7 @@ export function SiteHeader({ cartCount = 0 }: { cartCount?: number; overlay?: bo
       <div className={`relative overflow-hidden border-b border-border text-sm transition-all duration-500 ${scrolled ? "max-h-0 border-transparent" : "max-h-12"}`}>
         <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-primary to-transparent" />
         <div aria-hidden className="pointer-events-none absolute -bottom-6 left-1/2 h-10 w-2/3 -translate-x-1/2 rounded-full bg-primary/20 blur-2xl" />
-        <div className="relative mx-auto flex max-w-7xl items-center gap-4 px-6 py-2">
+        <div className="relative flex items-center gap-4 px-6 py-2 md:px-14 lg:px-20">
           <div className="hidden items-center gap-4 lg:flex">
             <span className="flex items-center gap-2"><Truck className="h-4 w-4 text-primary" />Livraison rapide partout au Maroc</span>
             <span className="text-muted-foreground">|</span>
@@ -60,13 +59,12 @@ export function SiteHeader({ cartCount = 0 }: { cartCount?: number; overlay?: bo
           </div>
           <div className="ml-auto flex items-center gap-3">
             <a href={`tel:${PHONE.replace(/\s/g, "")}`} className="flex items-center gap-2 transition hover:text-primary"><Headphones className="h-4 w-4 text-primary" />Service client : {PHONE}</a>
-            <a href={WHATSAPP} target="_blank" rel="noreferrer" aria-label="WhatsApp" className="flex h-7 w-7 items-center justify-center rounded-md bg-whatsapp text-whatsapp-foreground transition hover:scale-110"><MessageCircle className="h-4 w-4" /></a>
           </div>
         </div>
       </div>
 
       {/* Main row */}
-      <div className={`mx-auto flex max-w-7xl items-center gap-8 px-6 transition-all duration-500 ${scrolled ? "py-2" : "py-5"}`}>
+      <div className={`flex items-center gap-8 px-6 transition-all duration-500 md:px-14 lg:px-20 ${scrolled ? "py-2" : "py-5"}`}>
         <Logo compact={scrolled} />
         <form onSubmit={(e) => { e.preventDefault(); navigate({ to: "/boutique" }); }} className="mx-auto hidden w-full max-w-xl items-center rounded-full border border-border bg-card p-1 pl-6 transition focus-within:border-primary md:flex">
           <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Rechercher un produit, une marque, une référence…" aria-label="Rechercher un produit"
@@ -85,7 +83,7 @@ export function SiteHeader({ cartCount = 0 }: { cartCount?: number; overlay?: bo
 
       {/* Nav */}
       <nav className="border-y border-border bg-card/60">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-2 overflow-x-auto px-6 text-[15px] font-medium lg:overflow-visible">
+        <div className="flex items-center justify-between gap-2 overflow-x-auto px-6 text-[15px] font-medium md:px-14 lg:px-20 lg:overflow-visible">
           {nav.map((n) => {
             const I = n.icon;
             return (
