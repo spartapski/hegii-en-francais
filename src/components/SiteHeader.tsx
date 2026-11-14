@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState, type ComponentType } from "react";
-import { BadgePercent, ChevronDown, Cpu, Headphones, Heart, Home, Layers, Mail, Search, ShieldCheck, ShoppingCart, Sofa, Sparkles, Star, Truck, User } from "lucide-react";
+import { BadgePercent, ChevronDown, Cpu, Heart, Home, Layers, Mail, Search, ShoppingCart, Sofa, Sparkles, Star, User } from "lucide-react";
 import logoWordmark from "@/assets/logo-decobest-wordmark.png.asset.json";
 
 export const PHONE = "+212 6 70 16 40 56";
@@ -45,24 +45,6 @@ export function SiteHeader({ cartCount = 0 }: { cartCount?: number; overlay?: bo
   useEffect(() => { const f = () => setScrolled(window.scrollY > 60); f(); window.addEventListener("scroll", f); return () => window.removeEventListener("scroll", f); }, []);
   return (
     <header className={`sticky top-0 z-40 bg-background/95 backdrop-blur transition-shadow duration-500 ${scrolled ? "shadow-lg shadow-background/60" : ""}`}>
-      {/* Top info bar */}
-      <div className={`relative overflow-hidden border-b border-border text-sm transition-all duration-500 ${scrolled ? "max-h-0 border-transparent" : "max-h-12"}`}>
-        <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-primary to-transparent" />
-        <div aria-hidden className="pointer-events-none absolute -bottom-6 left-1/2 h-10 w-2/3 -translate-x-1/2 rounded-full bg-primary/20 blur-2xl" />
-        <div className="relative flex items-center gap-4 px-6 py-2 md:px-14 lg:px-20">
-          <div className="hidden items-center gap-4 lg:flex">
-            <span className="flex items-center gap-2"><Truck className="h-4 w-4 text-primary" />Livraison rapide partout au Maroc</span>
-            <span className="text-muted-foreground">|</span>
-            <span className="flex items-center gap-2"><Star className="h-4 w-4 text-primary" />Qualité professionnelle</span>
-            <span className="text-muted-foreground">|</span>
-            <span className="flex items-center gap-2"><ShieldCheck className="h-4 w-4 fill-primary text-primary-foreground" />Paiement sécurisé</span>
-          </div>
-          <div className="ml-auto flex items-center gap-3">
-            <a href={`tel:${PHONE.replace(/\s/g, "")}`} className="flex items-center gap-2 transition hover:text-primary"><Headphones className="h-4 w-4 text-primary" />Service client : {PHONE}</a>
-          </div>
-        </div>
-      </div>
-
       {/* Main row */}
       <div className={`flex items-center gap-8 px-6 transition-all duration-500 md:px-14 lg:px-20 ${scrolled ? "py-2" : "py-5"}`}>
         <Logo compact={scrolled} />
